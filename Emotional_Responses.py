@@ -40,4 +40,3 @@ def sad(pity):
         return("You're {}".format(first_tier[randint(0,len(first_tier)-1)]))
     if pity == 2:
         return("You're {}".format(second_tier[randint(0,len(second_tier)-1)]))
-print(sad(2))
