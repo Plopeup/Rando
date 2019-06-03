@@ -46,6 +46,7 @@ def neutral_analysis(phrase):
                                     edit = edit.append((word_choice[int(i)], a))
                                     print(edit)
                                     z=1
+                                    print"stupid
                         return
 
 
