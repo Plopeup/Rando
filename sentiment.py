@@ -5,7 +5,7 @@ from nltk.corpus import stopwords
 
 #clean_phrase cleans the phrase from symbols and extra spaces
 def clean_phrase(phrase):
-    return(' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) |(\w+:\/\/\S+,)", " ", phrase).split()))
+    return(' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) |(\w+:\/\/\S+)", " ", phrase).split()))
 
 #get_phrase_sentiment will tell if the phrase is a positive,neutral or negative phrase
 def get_phrase_sentiment(phrase):
@@ -23,3 +23,5 @@ def stop_word_removal(phrase):
     new_phrase_list = new_phrase.split(' ')
     stop_words = stopwords.words('english')
     return ([word for word in new_phrase_list if word not in stop_words])
+
+print(get_phrase_sentiment("I love cake like all the time"))
