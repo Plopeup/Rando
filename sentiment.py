@@ -23,5 +23,3 @@ def stop_word_removal(phrase):
     new_phrase_list = new_phrase.split(' ')
     stop_words = stopwords.words('english')
     return ([word for word in new_phrase_list if word not in stop_words])
-
-print(get_phrase_sentiment("I love cake like all the time"))

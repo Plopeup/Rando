@@ -9,11 +9,11 @@ def neutral_analysis(phrase):
     z=0
     edit = []
     while y!=1:
-        support = input(("I apologize how should I feel? Postive/Negative/Neutral \n"))
+        support = input(("I apologize how should I feel? Positive/Negative/Neutral \n"))
         support_choice=['positive','negative', 'neutral']
         if support.lower() not in support_choice:
             print('Please input one of the answers given\n')
-        if support.lower() == 'negative':
+        if support.lower() == 'negative' or support.lower() == 'positive':
             word_choice = SWR(phrase)
             options = ''
             for i in range(len(word_choice)):
@@ -48,6 +48,10 @@ def neutral_analysis(phrase):
                                     edit.append((a, b))
                                     z=1
                         return(edit)
+                else:
+                    return(None)
+        if support.lower() == 'neutral':
+            return(None)
 
 #Determines Emotion Points as well as a positive or negatvie feeling
 def Emotion(phrase_list, sentiment):
