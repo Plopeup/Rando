@@ -4,7 +4,7 @@ from pandas import ExcelFile
 from Emotional_Responses import insult, compliment, flirty, sad
 from spellchecker import SpellChecker
 from Sentiment import get_phrase_sentiment as gps, clean_phrase as cp
-from Analysis import neutral_analysis, Emotion
+from Analysis import neutral_analysis, Emotion, emotion_to_excel
 
 def main():
     x=0
@@ -29,7 +29,7 @@ def main():
                 happy_response.append(sayin)
                 total_happy += happy_points
                 print("Rando: "+compliment(total_happy))
-        if emotion_dic['Feeling'] == 'negative':
+        elif emotion_dic['Feeling'] == 'negative':
             sad_points, anger_points = 0, 0
             sad_points += emotion_dic['Sad Points']
             anger_points += emotion_dic['Anger Points']
@@ -54,7 +54,7 @@ def main():
                         new_sad.append(i[0])
                     if i[1] == 'Flirtatious':
                         new_flirt.append(i[0])
-
+                    emotion_to_excel(new_sad,new_happy,new_anger,new_flirt)
                 print(new_happy)
                 print(new_anger)
                 print(new_sad)

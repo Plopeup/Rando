@@ -1,4 +1,6 @@
 import pandas as pd
+from pandas import ExcelWriter
+from pandas import ExcelFile
 from Sentiment import stop_word_removal as SWR, clean_phrase as CP
 
 #If the feeling is neutral then we will have to do a neutral analysis to make sure
@@ -97,6 +99,21 @@ def Emotion(phrase_list, sentiment):
                 sad_point+=1
             return {'Feeling':'negative','Sad Points':sad_point,'Anger Points':angry_point}
 
+#adds the emotion words to the Database
+def emotion_to_excel(sad_list,happy_list,angry_list,flirt_list):
+    df = pd.read_excel('Rando-Database.xlsx')
+    sad = df['Sad'].tolist()
+    flirt = df['Flirtatious'].tolist()
+    happy = df['Happy'].tolist()
+    anger = df['Anger'].tolist()
+    sad += sad_list
+    flirt += flirt_list
+    happy += happy_list
+    anger += angry_list
+    df1 = pd.DataFrame([sad,happy,flirt,anger], columns = ['Sad','Happy','Flirtatious','Anger'])
+    df1.to_excel("Rando-Database.xlsx")
+    return
+    
 #checks if the list has numbers in a list
 def hasNumbers(inputString):
     return any(char.isdigit() for char in inputString)
