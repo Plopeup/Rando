@@ -106,14 +106,22 @@ def emotion_to_excel(sad_list,happy_list,angry_list,flirt_list):
     flirt = df['Flirtatious'].tolist()
     happy = df['Happy'].tolist()
     anger = df['Anger'].tolist()
-    sad += sad_list
-    flirt += flirt_list
-    happy += happy_list
-    anger += angry_list
-    df1 = pd.DataFrame([sad,happy,flirt,anger], columns = ['Sad','Happy','Flirtatious','Anger'])
+    sad = [x for x in sad if str(x) != 'nan']
+    sad = list(set().union(sad,sad_list))
+    flirt = [x for x in flirt if str(x) != 'nan']
+    flirt = list(set().union(flirt, flirt_list))
+    happy = [x for x in happy if str(x) != 'nan']
+    happy = list(set().union(happy, happy_list))
+    anger = [x for x in anger if str(x) != 'nan']
+    anger = list(set().union(anger, angry_list))
+    df1_raw = [sad,happy,flirt,anger]
+    data_dict = {'Sad':sad, 'Happy':happy, 'Flirtatious':flirt, 'Anger':anger}
+    df1 = pd.DataFrame.from_dict(data_dict, orient='index')
+    df1 = df1.transpose()
     df1.to_excel("Rando-Database.xlsx")
     return
-    
+
+
 #checks if the list has numbers in a list
 def hasNumbers(inputString):
     return any(char.isdigit() for char in inputString)
