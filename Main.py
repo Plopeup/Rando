@@ -39,7 +39,6 @@ def main():
             sad_points += emotion_dic['Sad Points']
             anger_points += emotion_dic['Anger Points']
             spectrum -= sad_points + anger_points
-            print(spectrum)
             if anger_points > sad_points:
                 if spectrum > 0:
                     print("Rando: "+ insult(0))
