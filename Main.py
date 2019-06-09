@@ -2,7 +2,6 @@ import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
 from Emotional_Responses import insult, compliment, flirty, sad
-from spellchecker import SpellChecker
 from Sentiment import get_phrase_sentiment as gps, clean_phrase as cp
 from Analysis import neutral_analysis, Emotion, emotion_to_excel
 
@@ -21,27 +20,40 @@ def main():
             happy_points += emotion_dic['Happy Points']
             flirt_points += emotion_dic['Flirt Points']
             spectrum += happy_points + flirt_points
-            if flirt_points > happy_points and spectrum >= 0:
-                flirt_response.append(sayin)
-                total_flirt += flirt_points
-                print("Rando: "+flirty(total_flirt))
-            if happy_points >= flirt_points and spectrum >=0:
-                happy_response.append(sayin)
-                total_happy += happy_points
-                print("Rando: "+compliment(total_happy))
+            if flirt_points > happy_points:
+                if spectrum < 0:
+                    print("Rando: "+flirty(0))
+                else:
+                    flirt_response.append(sayin)
+                    total_flirt += flirt_points
+                    print("Rando: "+flirty(total_flirt))
+            if happy_points >= flirt_points:
+                if spectrum < 0:
+                    print("Rando: "+compliment(0))
+                else:
+                    happy_response.append(sayin)
+                    total_happy += happy_points
+                    print("Rando: "+compliment(total_happy))
         elif emotion_dic['Feeling'] == 'negative':
             sad_points, anger_points = 0, 0
             sad_points += emotion_dic['Sad Points']
             anger_points += emotion_dic['Anger Points']
             spectrum -= sad_points + anger_points
-            if anger_points > sad_points and spectrum <= 0:
-                anger_response.append(sayin)
-                total_anger += anger_points
-                print("Rando: "+ insult(total_anger))
-            if sad_points >= anger_points and spectrum <= 0:
-                sad_response.append(sayin)
-                total_sad += sad_points
-                print("Rando: "+ sad(total_sad))
+            print(spectrum)
+            if anger_points > sad_points:
+                if spectrum > 0:
+                    print("Rando: "+ insult(0))
+                else:
+                    anger_response.append(sayin)
+                    total_anger += anger_points
+                    print("Rando: "+ insult(total_anger))
+            if sad_points >= anger_points:
+                if spectrum > 0:
+                    print("Rando: "+ sad(0))
+                else:
+                    sad_response.append(sayin)
+                    total_sad += sad_points
+                    print("Rando: "+ sad(total_sad))
         else:
             neutral_change = neutral_analysis(sayin)
             if neutral_change != None:
